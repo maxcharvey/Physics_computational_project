@@ -7,7 +7,7 @@ This will enable the world to be setup for:
 - Extended Lenia
 
 In order to do this the following operations need to be completed
-2. The world of a certain size needs to be generated and the initial conditions need to be applied
+1. The world of a certain size needs to be generated and the initial conditions need to be applied
 """
 
 import numpy as np
@@ -75,7 +75,7 @@ def generate_world(n, p, game):
 
 
 if __name__ == '__main__':
-    test = generate_world(100, 0.0001, 1)
+    test = generate_world(100, 0.5, 1)
 
     fig, ax = plt.subplots()
     img = ax.imshow(test, interpolation='nearest')
