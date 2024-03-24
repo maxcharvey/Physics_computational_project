@@ -8,15 +8,24 @@ from build_kernel import generate_kernel
 from conway import conway
 import matplotlib.animation as animation
 
+from smooth_life_kernel_test import smooth_kernel
+from smooth_life_rules_test import smooth
 
-world_size = 100
-life_parameter = 0.2
+
+world_size = 250
+life_parameter = 0.4
 trial_world = generate_world(world_size, life_parameter, 0)
+
+
 trial_kernel = generate_kernel()
+
+kernel_1, kernel_2 = smooth_kernel()
+
 
 fig, ax = plt.subplots()
 img = ax.imshow(trial_world, interpolation='nearest')
-ani = animation.FuncAnimation(fig, conway, fargs=(img, trial_world, trial_kernel), frames=100, interval=50, save_count=50)
+ani = animation.FuncAnimation(fig, smooth, fargs=(img, trial_world, kernel_1, kernel_2), frames=1000, interval=50, save_count=50)
+
 
 plt.show()
 
