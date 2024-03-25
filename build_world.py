@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 from scipy.stats import norm
 
 
-#TODO: also need to alter these functions so that eventually they can take a defined input if you want to demonstrate a
+# TODO: also need to alter these functions so that eventually they can take a defined input if you want to demonstrate a
 # certain structure such as a glider - this may have to just be done with a separate function in main.py so that you can
 # either select to make a random world or look at a specific structure
 
@@ -42,42 +42,56 @@ def generate_world(n, p, game):
     - If an invalid game identifier is provided, a warning is printed, and Conway's Game of Life is assumed by default.
         """
 
-
     # here we need to create a normal distribution around some value such that the integral = p
     a = np.linspace(0, 1, 256)
     b = norm.pdf(a, p, 0.15)
     norm_normal = b / sum(b)
 
-
-    if game == 0: # For Conway's game of life
+    if game <= 1:  # For Conway's game of life and smooth life
         probability_alive = p
         initial_state_options = [255, 0]
-        initial_state_probabilities = [probability_alive, 1-probability_alive]
-    elif game == 1: # For smooth life
-        initial_state_options = np.linspace(0, 255, 256)[::-1]
-        initial_state_probabilities = norm_normal[::-1]
-    elif game == 2: # For Lenia
+        initial_state_probabilities = [probability_alive, 1 - probability_alive]
+        grid = np.random.choice(initial_state_options, n * n, p=initial_state_probabilities).reshape(n, n)
+
+    elif game == 2:  # For Lenia
         initial_state_options = np.linspace(0, 1, 256)[::-1]
         initial_state_probabilities = norm_normal[::-1]
-    elif game == 3: # For extended Lenia
-        initial_state_options = np.linspace(0, 1, 256)[::-1]
-        initial_state_probabilities = norm_normal[::-1]
+        grid = np.random.choice(initial_state_options, n * n, p=initial_state_probabilities).reshape(n, n)
+
+    elif game == 3:  # For extended Lenia where there will be 3 channels
+        grid = []
+        for i in range(3):
+            initial_state_options = np.linspace(0, 1, 256)[::-1]
+            initial_state_probabilities = norm_normal[::-1]
+            temp_grid = np.random.choice(initial_state_options, n * n, p=initial_state_probabilities).reshape(n, n)
+            grid.append(temp_grid)
+
     else:
         probability_alive = p
         initial_state_options = [255, 0]
         initial_state_probabilities = [probability_alive, 1 - probability_alive]
         print("You have not selected a valid game")
+        grid = np.random.choice(initial_state_options, n * n, p=initial_state_probabilities).reshape(n, n)
 
-    grid = np.random.choice(initial_state_options, n*n, p=initial_state_probabilities).reshape(n, n)
 
     return grid
 
 
 
 if __name__ == '__main__':
-    test = generate_world(100, 0.5, 1)
 
-    fig, ax = plt.subplots()
-    img = ax.imshow(test, interpolation='nearest')
+# This is testing for extended Lenia
+    #test = generate_world(100, 0.5, 3)
+    #fig, ax = plt.subplots(ncols=3)
+    #ax=ax.flatten()
+    #img = ax[0].imshow(test[0], interpolation='nearest')
+    #img = ax[1].imshow(test[1], interpolation='nearest')
+    #img = ax[2].imshow(test[2], interpolation='nearest')
+
+# This is the testing for the original conway game of life
+    #test = generate_world(100, 0.5, 0)
+    #fig, ax = plt.subplots()
+    #img = ax.imshow(test, interpolation='nearest')
+
     plt.show()
 

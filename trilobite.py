@@ -7,6 +7,20 @@ import scipy
 
 def trilobite(size, r):
 
+    """
+        Generate a trilobite-like pattern within a square grid.
+
+        Parameters:
+        - size (int): Size of the square grid.
+        - r (int): Radius of the trilobite pattern.
+
+        Returns:
+        - numpy.ndarray: Array representing the trilobite pattern within the square grid.
+
+        This function generates a trilobite-like pattern within a square grid of given size.
+        The pattern is centered within the grid, and its size is determined by the radius parameter.
+    """
+
     C = np.array([
           [0,0,0,0,0,0,0.1,0.14,0.1,0,0,0.03,0.03,0,0,0.3,0,0,0,0],
           [0,0,0,0,0,0.08,0.24,0.3,0.3,0.18,0.14,0.15,0.16,0.15,0.09,0.2,0,0,0,0],

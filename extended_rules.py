@@ -1,5 +1,6 @@
 """
-This is where we will now implement the Lenia rules
+This is where we will make the first implementation of extended Lenia with multiple
+channels available - this will involve including inteactions between the channels
 """
 
 import numpy as np
@@ -9,6 +10,7 @@ from scipy.signal import convolve2d
 mu = 0.15
 sigma = 0.015
 T = 10
+
 def growth(u):
 
     """
@@ -55,7 +57,3 @@ def lenia(frame_num, img, world, kernel):
 
     img.set_data(new_world)
     world[:] = new_world[:]
-
-    return img
-
-

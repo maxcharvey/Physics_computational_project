@@ -51,7 +51,7 @@ world_size = 200
 life_parameter = 0.9
 
 #trial_world = generate_world(world_size, life_parameter, 0)
-trial_world = generate_world(world_size, life_parameter, 2)
+#trial_world = generate_world(world_size, life_parameter, 2)
 #trial_world = trilobite(100, 13)
 
 
@@ -59,13 +59,43 @@ trial_world = generate_world(world_size, life_parameter, 2)
 #trial_kernel = conway_kernel()
 #trial_kernel = smooth_kernel()
 #trial_kernel = lenia_kernel()
-trial_kernel = extended_kernel()[2]
+#trial_kernel = extended_kernel[0]
 
+kernel_channel1 = extended_kernel()[0]  # Define kernel for channel 1
+kernel_channel2 = extended_kernel()[1]  # Define kernel for channel 2
 
 fig, ax = plt.subplots()
-img = ax.imshow(trial_world, cmap='Blues', interpolation='nearest', vmin=0)
-ani = animation.FuncAnimation(fig, lenia, fargs=(img, trial_world, trial_kernel), frames=250, interval=50,
+
+# Define two different colormaps for representing two channels
+cmap_channel1 = matplotlib.colors.ListedColormap(['black', 'blue'])  # Define colors for channel 1
+cmap_channel2 = matplotlib.colors.ListedColormap(['black', 'red'])  # Define colors for channel 2
+
+# Plot the two channels separately
+img_channel1 = ax.imshow(trial_world[..., 0], cmap=cmap_channel1, interpolation='nearest', vmin=0, vmax=1)
+img_channel2 = ax.imshow(trial_world[..., 1], cmap=cmap_channel2, interpolation='nearest', vmin=0, vmax=1,
+                         alpha=0.5)  # Set alpha for transparency
+
+# Combine both channels in a single plot
+img_combined = [img_channel1, img_channel2]
+
+
+def update(frame, *fargs):
+    for i, img in enumerate(img_combined):
+        fargs[i].set_array(fargs[i].get_array())  # Update data for each channel
+
+    # Apply different kernels to different channels
+    new_world_channel1 = lenia(frame, *fargs[:2], trial_world[..., 0], kernel_channel1)
+    new_world_channel2 = conway(frame, *fargs[:2], trial_world[..., 1], kernel_channel2)
+
+    trial_world[..., 0] = new_world_channel1  # Update world for channel 1
+    trial_world[..., 1] = new_world_channel2  # Update world for channel 2
+
+
+ani = animation.FuncAnimation(fig, update,
+                              fargs=(img_channel1, img_channel2, trial_world, kernel_channel1, kernel_channel2),
+                              frames=250, interval=50,
                               repeat=False, save_count=250)
+
 
 
 writer_video = animation.FFMpegWriter(fps=30)
