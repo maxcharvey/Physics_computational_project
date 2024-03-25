@@ -1,26 +1,7 @@
-"""
-This script is going to be used for generating the initial worlds based upon a number of given parameters
-This will enable the world to be setup for:
-- Conways game of life
-- Smooth life
-- Lenia
-- Extended Lenia
-
-In order to do this the following operations need to be completed
-1. The world of a certain size needs to be generated and the initial conditions need to be applied
-"""
-
 import numpy as np
-import matplotlib.pyplot as plt
 from scipy.stats import norm
 
-
-# TODO: also need to alter these functions so that eventually they can take a defined input if you want to demonstrate a
-# certain structure such as a glider - this may have to just be done with a separate function in main.py so that you can
-# either select to make a random world or look at a specific structure
-
-
-def generate_world(n, p, game):
+def generate_world_cluster(n, p, game, cluster_prob, cluster_size):
     """
     This function generates the initial state of the world/grid for the specified game.
 
@@ -32,6 +13,8 @@ def generate_world(n, p, game):
       - 1: Smooth Life
       - 2: Lenia
       - 3: Extended Lenia
+    - cluster_prob: Float, specifying the probability of adding a cluster.
+    - cluster_size: Integer, specifying the size of the cluster.
 
     Returns:
     - grid: 2D NumPy array, representing the initial state of the world/grid.
@@ -40,9 +23,9 @@ def generate_world(n, p, game):
     - For Conway's Game of Life, the initial state consists of randomly distributed alive and dead cells based on the given probability.
     - For Smooth Life, Lenia, and Extended Lenia, the initial state is generated based on a normal distribution around the specified probability.
     - If an invalid game identifier is provided, a warning is printed, and Conway's Game of Life is assumed by default.
-        """
+    """
 
-    # here we need to create a normal distribution around some value such that the integral = p
+    # Define normal distribution parameters for generating the initial state
     a = np.linspace(0, 1, 256)
     b = norm.pdf(a, p, 0.15)
     norm_normal = b / sum(b)
@@ -58,13 +41,25 @@ def generate_world(n, p, game):
         initial_state_probabilities = norm_normal[::-1]
         grid = np.random.choice(initial_state_options, n * n, p=initial_state_probabilities).reshape(n, n)
 
-    elif game == 3:  # For extended Lenia where there will be 3 channels
-        grid = np.empty((200, 200, 3))
+    elif game == 3:  # For Extended Lenia where there will be 3 channels
+        grid = np.empty((n, n, 3))
         for i in range(3):
             initial_state_options = np.linspace(0, 1, 256)[::-1]
             initial_state_probabilities = norm_normal[::-1]
-            temp_grid = np.random.choice(initial_state_options, n * n, p=initial_state_probabilities).reshape(n, n)
-            grid[:,:, i] = temp_grid
+
+            # Randomly add clusters with the specified probability
+            if np.random.rand() < cluster_prob:
+                # Generate cluster coordinates
+                cluster_x = np.random.randint(0, n - cluster_size)
+                cluster_y = np.random.randint(0, n - cluster_size)
+                # Generate cluster values
+                cluster_values = np.random.choice(initial_state_options, cluster_size * cluster_size, p=initial_state_probabilities).reshape(cluster_size, cluster_size)
+                # Add the cluster to the grid
+                grid[cluster_x:cluster_x+cluster_size, cluster_y:cluster_y+cluster_size, i] = cluster_values
+            else:
+                # Generate random values without clusters
+                temp_grid = np.random.choice(initial_state_options, n * n, p=initial_state_probabilities).reshape(n, n)
+                grid[:,:, i] = temp_grid
 
     else:
         probability_alive = p
@@ -74,23 +69,4 @@ def generate_world(n, p, game):
         grid = np.random.choice(initial_state_options, n * n, p=initial_state_probabilities).reshape(n, n)
 
     return grid
-
-
-
-if __name__ == '__main__':
-
-# This is testing for extended Lenia
-    #test = generate_world(100, 0.5, 3)
-    #fig, ax = plt.subplots(ncols=3)
-    #ax=ax.flatten()
-    #img = ax[0].imshow(test[0], interpolation='nearest')
-    #img = ax[1].imshow(test[1], interpolation='nearest')
-    #img = ax[2].imshow(test[2], interpolation='nearest')
-
-# This is the testing for the original conway game of life
-    #test = generate_world(100, 0.5, 0)
-    #fig, ax = plt.subplots()
-    #img = ax.imshow(test, interpolation='nearest')
-
-    plt.show()
 
