@@ -57,10 +57,10 @@ def generate_world(n, p, game):
         initial_state_options = np.linspace(0, 255, 256)[::-1]
         initial_state_probabilities = norm_normal[::-1]
     elif game == 2: # For Lenia
-        initial_state_options = np.linspace(0, 255, 256)[::-1]
+        initial_state_options = np.linspace(0, 1, 256)[::-1]
         initial_state_probabilities = norm_normal[::-1]
     elif game == 3: # For extended Lenia
-        initial_state_options = np.linspace(0, 255, 256)[::-1]
+        initial_state_options = np.linspace(0, 1, 256)[::-1]
         initial_state_probabilities = norm_normal[::-1]
     else:
         probability_alive = p

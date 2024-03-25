@@ -9,7 +9,7 @@ Game of Life
 import numpy as np
 
 
-def generate_kernel():
+def conway_kernel():
     """
     This function, named `generate_kernel`, generates a kernel matrix that is used for computing neighbor sums in grid-based games. The function currently generates a fixed 3x3 kernel matrix.
 
