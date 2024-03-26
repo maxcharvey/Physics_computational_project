@@ -29,7 +29,16 @@ def normal(x, mu, sigma):
 def extended_kernel():
 
     """
-    The extended kernel is actually going to return three kernels
+    Generates three kernels for the extended version of the Game of Life.
+
+    The extended kernel returns three kernels, each representing different aspects of the extended ruleset.
+
+    Returns:
+    tuple: A tuple containing three kernels: kernel_a, kernel_b, and kernel_c.
+
+    - kernel_a: Kernel representing one aspect of the extended ruleset.
+    - kernel_b: Kernel representing another aspect of the extended ruleset.
+    - kernel_c: Kernel representing yet another aspect of the extended ruleset.
     """
 
     R = 13

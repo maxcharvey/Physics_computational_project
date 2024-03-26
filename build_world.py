@@ -15,11 +15,6 @@ import matplotlib.pyplot as plt
 from scipy.stats import norm
 
 
-# TODO: also need to alter these functions so that eventually they can take a defined input if you want to demonstrate a
-# certain structure such as a glider - this may have to just be done with a separate function in main.py so that you can
-# either select to make a random world or look at a specific structure
-
-
 def generate_world(n, p, game):
     """
     This function generates the initial state of the world/grid for the specified game.

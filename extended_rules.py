@@ -37,7 +37,6 @@ def growth_extended(u):
     growth_1 = (normal(u, mu, sigma)*2 -1)
     growth_2 = (normal(u, mu, sigma)*2 -1)
 
-
     return growth_0, growth_1, growth_2
 
 
@@ -51,7 +50,7 @@ def extended(frame_num, img, world, kernel):
     - frame_num (int): Frame number of the animation.
     - img (matplotlib.image.AxesImage): Image object representing the current state of the world.
     - world (numpy.ndarray): Array representing the current state of the Lenia world.
-    - kernel (numpy.ndarray): Kernel used for convolution.
+    - kernel (tuple): Tuple containing three kernels used for convolution.
 
     Returns:
     - matplotlib.image.AxesImage: Updated image object representing the modified world state.
@@ -60,7 +59,6 @@ def extended(frame_num, img, world, kernel):
     computes the new state of the world based on Lenia growth rules, and updates
     the image object accordingly.
     """
-
 
     kernel_0, kernel_1, kernel_2 = kernel
 

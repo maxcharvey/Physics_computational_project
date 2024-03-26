@@ -1,3 +1,5 @@
+#TODO: Need to revisit this script to see about creating more complex or well known/defined initial structures
+
 import numpy as np
 from scipy.stats import norm
 
