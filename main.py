@@ -53,8 +53,8 @@ from extended_rules import extended
 matplotlib.rcParams['animation.ffmpeg_path'] = '/Users/maxharvey/anaconda/bin/ffmpeg'
 
 # Global variables that can be varied
-world_size = 200 # This will produce an NxN grid for the games to run in
-life_parameter = 0.25 # Controls how much initial life there is within the game
+world_size = 150 # This will produce an NxN grid for the games to run in
+life_parameter = 0.1 # Controls how much initial life there is within the game
 
 
 """
@@ -79,15 +79,15 @@ trial_kernel = kernel_options[game_selection]
 # Generation of the animation
 fig, ax = plt.subplots()
 img = ax.imshow(trial_world, interpolation='nearest', vmin=0)
-ani = animation.FuncAnimation(fig, game_options[game_selection], fargs=(img, trial_world, trial_kernel), frames=250, interval=50,
-                              repeat=False, save_count=250)
+ani = animation.FuncAnimation(fig, game_options[game_selection], fargs=(img, trial_world, trial_kernel), frames=1000, interval=50,
+                              repeat=False, save_count=1000)
 
 
 
 
 # These parts can be used for saving videos if required
-writer_video = animation.FFMpegWriter(fps=30)
-#ani.save('Lenia_extended_test3.mp4', writer=writer_video, dpi=150)
+writer_video = animation.FFMpegWriter(fps=15)
+#ani.save('Lenia_extended_test5.mp4', writer=writer_video, dpi=300)
 
 # This displays the animation after any necessary saving has been completed
 plt.show()
