@@ -5,6 +5,7 @@ This is where we will now implement the Lenia rules
 import numpy as np
 from lenia_kernel import normal
 from scipy.signal import convolve2d
+import matplotlib.pyplot as plt
 
 mu = 0.15
 sigma = 0.015
@@ -58,4 +59,11 @@ def lenia(frame_num, img, world, kernel):
 
     return img
 
-
+if __name__ == '__main__':
+    t = np.linspace(0,1, 1000)
+    fig, ax1 = plt.subplots()
+    ax1.plot(t, growth(t))
+    ax1.set_xlabel('$U$')
+    ax1.set_ylabel('A')
+    ax1.axhline(0, c='k', linestyle='--', alpha=0.5)
+    plt.show()

@@ -55,7 +55,14 @@ def smooth_kernel():
 
 if __name__ == '__main__':
     fig, ax1 = plt.subplots(ncols=2)
-    ax1=ax1.flatten()
-    ax1[0].imshow(smooth_kernel()[0])
-    ax1[1].imshow(smooth_kernel()[1])
+    ax1 = ax1.flatten()
+    img1 = ax1[0].imshow(smooth_kernel()[0])
+    img2 = ax1[1].imshow(smooth_kernel()[1])
+    a = fig.colorbar(img1, ax=ax1[0])
+    b = fig.colorbar(img2, ax=ax1[1], shrink=0.5)
+    ax1[0].set_title('$K_{inner}$')
+    ax1[1].set_title('$K_{outer}$')
+    a.remove()
+
+
     plt.show()

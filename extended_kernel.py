@@ -57,11 +57,19 @@ def extended_kernel():
 
     return kernel_a, kernel_b, kernel_c
 
-if __name__ =='__main__':
-    fig, ax1 = plt.subplots(ncols=3)
-    ax1=ax1.flatten()
-    ax1[0].imshow(extended_kernel()[0], cmap="jet", interpolation="nearest", vmin=0)
-    ax1[1].imshow(extended_kernel()[1], cmap="jet", interpolation="nearest", vmin=0)
-    ax1[2].imshow(extended_kernel()[2], cmap="jet", interpolation="nearest", vmin=0)
-    plt.show()
 
+if __name__ == '__main__':
+    fig, ax1 = plt.subplots(ncols=3)
+    ax1 = ax1.flatten()
+    img0 = ax1[0].imshow(extended_kernel()[0], cmap="jet", interpolation="nearest", vmin=0)
+    img1 = ax1[1].imshow(extended_kernel()[1], cmap="jet", interpolation="nearest", vmin=0)
+    img2 = ax1[2].imshow(extended_kernel()[2], cmap="jet", interpolation="nearest", vmin=0)
+
+    ax1[0].set_title('$K_0$')
+    ax1[1].set_title('$K_1$')
+    ax1[2].set_title('$K_2$')
+
+    # Create a single colorbar for all subplots
+    cbar = fig.colorbar(img2, ax=ax1.ravel().tolist(), orientation='horizontal')
+
+    plt.show()
