@@ -54,7 +54,7 @@ matplotlib.rcParams['animation.ffmpeg_path'] = '/Users/maxharvey/anaconda/bin/ff
 
 # Global variables that can be varied
 world_size = 200 # This will produce an NxN grid for the games to run in
-life_parameter = 0.5 # Controls how much initial life there is within the game
+life_parameter = 0.25 # Controls how much initial life there is within the game
 
 
 """
@@ -87,7 +87,7 @@ ani = animation.FuncAnimation(fig, game_options[game_selection], fargs=(img, tri
 
 # These parts can be used for saving videos if required
 writer_video = animation.FFMpegWriter(fps=30)
-#ani.save('Lenia_kernels_video.mp4', writer=writer_video, dpi=150)
+#ani.save('Lenia_extended_test3.mp4', writer=writer_video, dpi=150)
 
 # This displays the animation after any necessary saving has been completed
 plt.show()

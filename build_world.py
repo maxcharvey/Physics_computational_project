@@ -54,7 +54,7 @@ def generate_world(n, p, game):
         grid = np.random.choice(initial_state_options, n * n, p=initial_state_probabilities).reshape(n, n)
 
     elif game == 3:  # For extended Lenia where there will be 3 channels
-        grid = np.empty((200, 200, 3))
+        grid = np.empty((n, n, 3))
         for i in range(3):
             initial_state_options = np.linspace(0, 1, 256)[::-1]
             initial_state_probabilities = norm_normal[::-1]

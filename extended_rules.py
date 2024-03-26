@@ -2,17 +2,41 @@
 Here we will implement the updated lenia rules to expanded into 'Extended Lenia'
 """
 
-"""
-This is where we will now implement the Lenia rules
-"""
 
 import numpy as np
 from lenia_kernel import normal
 from scipy.signal import convolve2d
 
+
 mu = 0.15
 sigma = 0.035
 T = 10
+shape = 3 #The shape used for generating random arrays for the weight functions
+
+
+
+inputs = np.asarray([0.7874146140033532, 0.9995907055663129, 0.6302027066220202, 0.25437082797520816, 0.918955292053734, 0.44289675302847675, 0.8811024409786316, 0.30734594954056615, 0.05773577047772083, 0.4683858977125749, 0.02828416207602169, 0.32541754418225843])
+#inputs = np.asarray([])
+
+
+
+if len(inputs) == 0:
+    a_g = np.random.rand()
+    b_g = np.random.rand()
+    c_g = np.random.rand()
+    w_1 = np.random.uniform(0, 1, size=shape)
+    w_2 = np.random.uniform(0, 1, size=shape)
+    w_3 = np.random.uniform(0, 1, size=shape)
+else:
+    a_g = inputs[0]
+    b_g = inputs[1]
+    c_g = inputs[2]
+    w_1 = np.asarray([inputs[3], inputs[4], inputs[5]])
+    w_2 = np.asarray([inputs[6], inputs[7], inputs[8]])
+    w_3 = np.asarray([inputs[9], inputs[10], inputs[11]])
+
+
+print(f'np.asarray([{a_g}, {b_g}, {c_g}, {w_1[0]}, {w_1[1]}, {w_1[2]}, {w_2[0]}, {w_2[1]}, {w_2[2]}, {w_3[0]}, {w_3[1]}, {w_3[2]}])')
 
 
 def growth_extended(u):
@@ -33,9 +57,10 @@ def growth_extended(u):
         This function is typically used in cellular automata simulations, where it influences the evolution of the system.
     """
 
-    growth_0 = (normal(u, mu, sigma)*2 -1)
-    growth_1 = (normal(u, mu, sigma)*2 -1)
-    growth_2 = (normal(u, mu, sigma)*2 -1)
+    growth_0 = a_g*(normal(u, mu, sigma)*2 -1)
+    growth_1 = b_g*(normal(u, mu, sigma)*2 -1)
+    growth_2 = c_g*(normal(u, mu, sigma)*2 -1)
+
 
     return growth_0, growth_1, growth_2
 
@@ -76,14 +101,15 @@ def extended(frame_num, img, world, kernel):
     p = np.stack([p_0, p_1, p_2], axis=-1)
 
 
-    w_1 = np.array([1/3, 0.2, 2/3])
-    w_2 = np.array([0.3, 0.5, 0.5])
-    w_3 = np.array([0.2, 1, 0.4])
+    #w_1 = np.array([1/3, 0.2, 2/3])
+    #w_2 = np.array([0.3, 0.5, 0.5])
+    #w_3 = np.array([0.2, 1, 0.4])
 
     # Perform weighted sum using dot product
     a_0 = np.dot(p, w_1)
     a_1 = np.dot(p, w_2)
     a_2 = np.dot(p, w_3)
+
 
     new_world_r = np.clip(world[:, :, 0] + (a_0 / T), 0, 1)
     new_world_g = np.clip(world[:, :, 1] + (a_1 / T), 0, 1)
