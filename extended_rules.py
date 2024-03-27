@@ -6,6 +6,7 @@ Here we will implement the updated lenia rules to expanded into 'Extended Lenia'
 import numpy as np
 from lenia_kernel import normal
 from scipy.signal import convolve2d
+import matplotlib.pyplot as plt
 
 
 mu = 0.15
@@ -15,7 +16,7 @@ shape = 3 #The shape used for generating random arrays for the weight functions
 
 
 
-#inputs = np.asarray([0.5828051929985164, 0.637299222190276, 0.45753518881630606, 0.3994438099796903, 0.3469616155331331, 0.7136544376654389, 0.9382181773083026, 0.4224162509274645, 0.6059619728143331, 0.7342117421636588, 0.01480460493398894, 0.173437378336046])
+#inputs = np.asarray([0.45508943962847026, 0.047447376758514515, 0.1949510610177475, 0.1696975360658849, 0.19024660370433277, 0.9171687214746977, 0.6688609471896277, 0.5009667864071412, 0.538325422876513, 0.5910536909560137, 0.11618298171436581, 0.7636150295478731])
 inputs = np.asarray([])
 
 
@@ -63,8 +64,6 @@ def growth_extended(u):
 
 
     return growth_0, growth_1, growth_2
-
-
 
 def extended(frame_num, img, world, kernel):
 
@@ -122,4 +121,16 @@ def extended(frame_num, img, world, kernel):
     world[:] = new_world[:]
 
     return img
+
+if __name__ == '__main__':
+    fig, ax = plt.subplots()
+    t = np.linspace(0, 1, 1000)
+    ax.plot(t, growth_extended(t)[0], c='r', label='Red Channel')
+    ax.plot(t, growth_extended(t)[1], c='g', label='Green Channel')
+    ax.plot(t, growth_extended(t)[2], c='b', label='Blue Channel')
+    ax.set_xlabel('$U$')
+    ax.set_ylabel('$P$')
+    ax.axhline(0, c='k', linestyle='--', alpha=0.5)
+    ax.legend()
+    plt.show()
 

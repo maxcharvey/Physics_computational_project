@@ -64,6 +64,6 @@ if __name__ == '__main__':
     fig, ax1 = plt.subplots()
     ax1.plot(t, growth(t))
     ax1.set_xlabel('$U$')
-    ax1.set_ylabel('A')
+    ax1.set_ylabel('$A$')
     ax1.axhline(0, c='k', linestyle='--', alpha=0.5)
     plt.show()
