@@ -34,13 +34,13 @@ def smooth(frame_num, img, world, kernel):
 
 
     # Now we need to apply the smooth life rules
-    fract_s = neighbor_sum_s / (np.sum(kernel_s)*255)
-    fract_l = neighbor_sum_l / (np.sum(kernel_l)*255)
+    fract_s = neighbor_sum_s / (np.sum(kernel_s))
+    fract_l = neighbor_sum_l / (np.sum(kernel_l))
 
 
     # Apply the rules simultaneously and set all other cells to 0
     new_world = np.where(((fract_s >= 0.5) & (fract_l >= 0.26) & (fract_l <= 0.46)) | (
-                (fract_s < 0.5) & (fract_l >= 0.27) & (fract_l <= 0.36)), 255, 0)
+                (fract_s < 0.5) & (fract_l >= 0.27) & (fract_l <= 0.36)), 1, 0)
 
     img.set_data(new_world)
     world[:] = new_world[:]

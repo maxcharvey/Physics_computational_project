@@ -34,13 +34,13 @@ def conway(frame_num, img, world, kernel):
     neighbor_sum = convolve2d(world, kernel, mode='same', boundary='wrap')
 
     # Create temporary arrays to hold intermediate results
-    alive_to_dead = ((temp_world == 255) & (((neighbor_sum / 255) < 2) | (neighbor_sum / 255 > 3)))
-    dead_to_alive = ((temp_world == 0) & (neighbor_sum / 255 == 3))
+    alive_to_dead = ((temp_world == 1) & (((neighbor_sum / 1) < 2) | (neighbor_sum / 1 > 3)))
+    dead_to_alive = ((temp_world == 0) & (neighbor_sum / 1 == 3))
 
     # Apply the rules simultaneously
     new_world = temp_world.copy()  # Copy the current state
     new_world[alive_to_dead] = 0  # Set alive cells with too few or too many neighbors to dead
-    new_world[dead_to_alive] = 255  # Set dead cells with exactly 3 neighbors to alive
+    new_world[dead_to_alive] = 1  # Set dead cells with exactly 3 neighbors to alive
 
     img.set_data(new_world)
     world[:] = new_world[:]

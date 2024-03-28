@@ -44,7 +44,7 @@ def generate_world(n, p, game):
 
     if game <= 1:  # For Conway's game of life and smooth life
         probability_alive = p
-        initial_state_options = [255, 0]
+        initial_state_options = [1, 0]
         initial_state_probabilities = [probability_alive, 1 - probability_alive]
         grid = np.random.choice(initial_state_options, n * n, p=initial_state_probabilities).reshape(n, n)
 
