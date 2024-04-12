@@ -2,9 +2,6 @@
 This file is for a first attempt at making the smooth life kernel
 """
 
-#TODO: May need to write a different function that makes a circular kernel - may need to find out exactly
-# which larger circular kernel is actually used the for the smooth game of life
-
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -54,15 +51,23 @@ def smooth_kernel():
     return kernel_a, kernel_b
 
 if __name__ == '__main__':
+    bounds = np.linspace(0, 1, 11)
+    bounds2 = np.linspace(0, 1, 2)
     fig, ax1 = plt.subplots(ncols=2)
     ax1 = ax1.flatten()
+    ax1[0].tick_params(axis='both', which='both', bottom=False, left=False, labelbottom=False, labelleft=False)
+    ax1[1].tick_params(axis='both', which='both', bottom=False, left=False, labelbottom=False, labelleft=False)
     img1 = ax1[0].imshow(smooth_kernel()[0])
     img2 = ax1[1].imshow(smooth_kernel()[1])
-    a = fig.colorbar(img1, ax=ax1[0])
-    b = fig.colorbar(img2, ax=ax1[1], shrink=0.5)
     ax1[0].set_title('$K_{inner}$')
     ax1[1].set_title('$K_{outer}$')
-    a.remove()
+    fig.tight_layout()
+    cbar = fig.colorbar(img2, ax=ax1.ravel().tolist(), orientation='horizontal', ticks=bounds2, boundaries=bounds, pad=0.02)
+    cbar.set_label('Kernel value')
+    ax1[0].text(1.87, 2.48, '3x3 Grid')
+    ax1[1].text(17.78, 24.20, '25x25 Grid', color='white')
 
+    #plt.savefig('comp1', dpi=1200)
 
     plt.show()
+

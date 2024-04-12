@@ -48,5 +48,5 @@ def lenia_kernel():
 
 if __name__ == '__main__':
     fig, ax1 = plt.subplots()
-    ax1.imshow(lenia_kernel(), cmap="jet", interpolation="nearest", vmin=0)
+    ax1.imshow(lenia_kernel(), interpolation="nearest", vmin=0)
     plt.show()

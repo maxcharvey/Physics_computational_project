@@ -67,3 +67,4 @@ if __name__ == '__main__':
     ax1.set_ylabel('$A$')
     ax1.axhline(0, c='k', linestyle='--', alpha=0.5)
     plt.show()
+

@@ -61,15 +61,23 @@ def extended_kernel():
 if __name__ == '__main__':
     fig, ax1 = plt.subplots(ncols=3)
     ax1 = ax1.flatten()
-    img0 = ax1[0].imshow(extended_kernel()[0], cmap="jet", interpolation="nearest", vmin=0)
-    img1 = ax1[1].imshow(extended_kernel()[1], cmap="jet", interpolation="nearest", vmin=0)
-    img2 = ax1[2].imshow(extended_kernel()[2], cmap="jet", interpolation="nearest", vmin=0)
+    for i in range(3):
+        ax1[i].tick_params(axis='both', which='both', bottom=False, left=False, labelbottom=False, labelleft=False)
+        ax1[i].text(17.1, 25.3, '25x25 Grid', color='white', fontsize='x-small')
+
+    img0 = ax1[0].imshow(extended_kernel()[0], interpolation="nearest", vmin=0)
+    img1 = ax1[1].imshow(extended_kernel()[1], interpolation="nearest", vmin=0)
+    img2 = ax1[2].imshow(extended_kernel()[2], interpolation="nearest", vmin=0)
 
     ax1[0].set_title('$K_0$')
     ax1[1].set_title('$K_1$')
     ax1[2].set_title('$K_2$')
+    fig.tight_layout(pad=2)
 
     # Create a single colorbar for all subplots
-    cbar = fig.colorbar(img2, ax=ax1.ravel().tolist(), orientation='horizontal')
+    cbar = fig.colorbar(img2, ax=ax1.ravel().tolist(), orientation='horizontal',pad=0.025)
+    cbar.set_label('Normalised Kernel Value')
+
+    #plt.savefig('comp2', dpi=1200)
 
     plt.show()
