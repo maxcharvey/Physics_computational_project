@@ -54,7 +54,7 @@ from extended_rules import extended
 matplotlib.rcParams['animation.ffmpeg_path'] = '/Users/maxharvey/anaconda/bin/ffmpeg'
 
 # Global variables that can be varied
-world_size = 200 # This will produce an NxN grid for the games to run in
+world_size = 100 # This will produce an NxN grid for the games to run in
 life_parameter = 0.1 # Controls how much initial life there is within the game
 
 

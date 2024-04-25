@@ -1,5 +1,5 @@
 """
-This is the first attempt at writing the rules for the smooth game of life
+This file contains the rules for smooth game of life
 """
 
 import numpy as np

@@ -1,9 +1,8 @@
 """
-Here we are going to run some tests and try to implement Conway's game of life using a Kernel function
+This file contains the rules for Conway's Game of Life
 """
 
 
-import numpy as np
 from scipy.signal import convolve2d
 
 def conway(frame_num, img, world, kernel):

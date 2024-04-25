@@ -1,10 +1,7 @@
 """
-This file will be used to build the relevant kernels for the games depending upon which one
-is selected
-
-Currently, the function is only set up to generate the kernel for the original Conway
-Game of Life
+This file generates the conway kernel used within the conway game of life
 """
+
 
 import numpy as np
 
